@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { Form, Input, Button, Checkbox } from "antd";
-import { getFirestore, collection, getDocs } from "firebase/firestore/lite";
+import { getFirestore, collection, getDocs, addDoc } from "firebase/firestore";
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -8,6 +8,12 @@ import {
 } from "firebase/auth";
 import "./email.css";
 const Email = (props) => {
+  // const db = getFirestore();
+  // useEffect(() => {
+  //   const querySnapshot = getDocs(collection(db, "users")).then((res) => {
+  //     console.log(res, "res ");
+  //   });
+  // }, [db]);
   const onFinish = (values) => {
     const { email, password } = values;
     console.log("onFinish", values);
