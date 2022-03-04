@@ -5,6 +5,7 @@ import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  sendSignInLinkToEmail,
 } from "firebase/auth";
 import "./email.css";
 const Email = (props) => {
@@ -17,15 +18,20 @@ const Email = (props) => {
   const onFinish = (values) => {
     const { email, password } = values;
     console.log("onFinish", values);
+    var actionCodeSettings = {
+      // URL you want to redirect back to. The domain (www.example.com) for this URL
+      // must be whitelisted in the Firebase Console.
+      url: window.location.href, // Here we redirect back to this same page.
+      handleCodeInApp: true, // This must be true.
+    };
     // const citiesCol = collection(db, 'cities');
     const auth = getAuth();
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        console.log(user, "user");
+    sendSignInLinkToEmail(email, actionCodeSettings)
+      .then((e) => {
+        console.log(auth.currentUser, "auth currentUser");
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err, "err");
       });
   };
 
